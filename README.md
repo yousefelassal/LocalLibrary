@@ -15,3 +15,17 @@
 - `()` : Grouping match on a set of characters to perform another operation on, e.g. `'/ab(cd)?e'` will perform a `?`-match on the group `(cd)` — it will match `abe` and `abcde`.
 
 ## [Express Validator](https://express-validator.github.io/docs)
+- [`body([fields, message])`](https://express-validator.github.io/docs/api/check/#body)
+
+  ```js
+  [
+    // …
+    body("name", "Empty name").trim().isLength({ min: 1 }).escape(),
+    // …
+  ];
+  ```
+  - defines that we're checking the "name" field.
+  - a validation error will set an error message "Empty name".
+  - We then call the sanitization method `trim()` to remove whitespace from the start and end of the string.
+  - `isLength()` to check the resulting string isn't empty.
+  - Finally, we call `escape()` to remove HTML characters from the variable that might be used in JavaScript cross-site scripting attacks.
