@@ -55,3 +55,21 @@
     // …
   ];
   ```
+- [`validationResult(req)`](https://express-validator.github.io/docs/api/validation-result/#validationresult)
+
+  Runs the validation, making errors available in the form of a validation result object. This is invoked in a separate callback, as shown below:
+
+  ```js  
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+  
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      // Error messages can be returned in an array using `errors.array()`.
+    } else {
+      // Data from form is valid.
+    }
+  });
+  ```
+  We use the validation result's isEmpty() method to check if there were errors, and its array() method to get the set of error messages.
