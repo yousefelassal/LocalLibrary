@@ -29,3 +29,29 @@
   - We then call the sanitization method `trim()` to remove whitespace from the start and end of the string.
   - `isLength()` to check the resulting string isn't empty.
   - Finally, we call `escape()` to remove HTML characters from the variable that might be used in JavaScript cross-site scripting attacks.
+
+  This test checks that the age field is a valid date and uses optional() to specify that null and empty strings will not fail validation.
+
+  ```js
+  [
+    // …
+    body("age", "Invalid age")
+      .optional({ values: "falsy" })
+      .isISO8601()
+      .toDate(),
+    // …
+  ];
+  ```
+  You can also daisy chain different validators, and add messages that are displayed if the preceding validators are false.
+  ```js
+  [
+    // …
+    body("name")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Name empty.")
+      .isAlpha()
+      .withMessage("Name must be alphabet letters."),
+    // …
+  ];
+  ```
